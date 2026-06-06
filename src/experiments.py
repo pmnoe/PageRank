@@ -75,7 +75,6 @@ def personalization_experiment(M, pages, alpha=0.85, top_n=20):
         "Category:Probability_theory",
         "Category:Geometry",
         "Category:Functional_analysis",
-        "Category:Number_theory",
     ]
 
     result = pd.DataFrame({"Uniform": top_titles(np.ones(n) / n)})
