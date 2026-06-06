@@ -1,0 +1,2 @@
+n,alpha,tol,t_direct_ms,t_iterative_ms,speedup,n_iter
+5898,0.85,1e-08,2764.24,5.02,550.57,84

@@ -1,6 +1,35 @@
+import time
+
+import time
+
 import numpy as np
 import pandas as pd
 from src.pagerank import solve_direct, solve_iterative
+
+
+def timing_experiment(M, n, alpha=0.85, tol=1e-8, n_trials=5):
+    """
+    Compare wall-clock time of direct solve vs. iterative solve to ||p-p*||_1 < tol
+    with uniform teleportation.  Returns mean times, speedup, and iteration count.
+    """
+    v = np.ones(n) / n
+
+    t0 = time.perf_counter()
+    for _ in range(n_trials):
+        solve_direct(M, alpha, v)
+    t_direct = (time.perf_counter() - t0) / n_trials
+
+    t0 = time.perf_counter()
+    for _ in range(n_trials):
+        _, history = solve_iterative(M, alpha, v, tol=tol)
+    t_iterative = (time.perf_counter() - t0) / n_trials
+
+    return {
+        "t_direct_s": t_direct,
+        "t_iterative_s": t_iterative,
+        "speedup": t_direct / t_iterative,
+        "n_iter": len(history) - 1,
+    }
 
 
 def convergence_experiment(M, alphas, v, max_iter=300):
